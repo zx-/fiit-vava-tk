@@ -61,10 +61,26 @@ class UserDAOHib implements UserDAO{
     @Override
     @Transactional
     public User get(int id) {
-        String hql = "from User where user_id=" + id;
+        String hql = "from User where user_id=:id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", id);
          
         @SuppressWarnings("unchecked")
+        List<User> listUser = (List<User>) query.list();
+         
+        if (listUser != null && !listUser.isEmpty()) {
+            return listUser.get(0);
+        }
+         
+        return null;
+    }
+
+    @Override
+    public User getUser(String login) {
+        String hql = "from User where username=:login";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("login", login);
+         
         List<User> listUser = (List<User>) query.list();
          
         if (listUser != null && !listUser.isEmpty()) {
