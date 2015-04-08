@@ -24,7 +24,9 @@
             <h3>Login with Username and Password</h3>
 
             <c:if test="${not empty error}">
-                <div class="error">${error}</div>
+                <div class="error">${error}
+                    <p>${sessionScope["SPRING_SECURITY_LAST_EXCPETION"].message}</p>
+                </div>
             </c:if>
             <c:if test="${not empty msg}">
                 <div class="msg">${msg}</div>

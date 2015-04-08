@@ -10,6 +10,7 @@ import model.entityDAO.UserDAO;
 import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import org.apache.log4j.Logger;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -22,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
  
 class UserDAOHib implements UserDAO{
 
+    private static final Logger logger = Logger.getLogger(UserDAOHib.class);
+    
     @Autowired
     private SessionFactory sessionFactory;
  
@@ -80,9 +83,12 @@ class UserDAOHib implements UserDAO{
     @Transactional
     public User getUser(String login) {
         
+        logger.debug("getUser called with parameter: "+login);
+        
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
         User u = (User) criteria.add(Restrictions.eq("username", login))
                              .uniqueResult();
+        logger.debug("Result: "+u);
         return u;        
         
     }

@@ -19,6 +19,7 @@
 
     <!-- scanner for component annotations-->
     <context:component-scan base-package="controller" />
+    <context:component-scan base-package="model.service.*"/>
     
     <!-- set folder and stuff for views -->
     <bean id="viewResolver"
