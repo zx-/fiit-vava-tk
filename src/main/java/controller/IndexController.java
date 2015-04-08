@@ -27,9 +27,11 @@ public class IndexController {
 
         List<User> listUsers = userDao.list();
         //List<User> listUsers = new ArrayList<>();
+        User u = userDao.getUser("aaa");
 
         ModelAndView model = new ModelAndView("home");
         model.addObject("userList", listUsers);
+        model.addObject("userAAA", u);
         return model;
     }
 
@@ -44,37 +46,6 @@ public class IndexController {
         return model;
 
     }
-
-    @RequestMapping(value = "/dba**", method = RequestMethod.GET)
-    public ModelAndView dbaPage() {
-
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Hello World");
-        model.addObject("message", "This is protected page - Database Page!");
-        model.setViewName("admin");
-
-        return model;
-
-    }
     
-    //Spring Security see this :
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(
-            @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
-
-        ModelAndView model = new ModelAndView();
-        if (error != null) {
-            model.addObject("error", "Invalid username and password!");
-        }
-
-        if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
-        }
-        model.setViewName("login");
-
-        return model;
-
-    }
 
 }

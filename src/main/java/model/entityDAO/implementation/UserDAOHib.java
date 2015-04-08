@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,18 +77,14 @@ class UserDAOHib implements UserDAO{
     }
 
     @Override
+    @Transactional
     public User getUser(String login) {
-        String hql = "from User where username=:login";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("login", login);
-         
-        List<User> listUser = (List<User>) query.list();
-         
-        if (listUser != null && !listUser.isEmpty()) {
-            return listUser.get(0);
-        }
-         
-        return null;
+        
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+        User u = (User) criteria.add(Restrictions.eq("username", login))
+                             .uniqueResult();
+        return u;        
+        
     }
 
 }
