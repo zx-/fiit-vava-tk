@@ -14,7 +14,7 @@
             authentication-failure-url="/login-error" 
             username-parameter="j_username"
             password-parameter="j_password" />
-        <logout logout-success-url="/index.html" />
+        <logout logout-success-url="/" />
         <!-- enable csrf protection -->
         <csrf/>
     </http>
@@ -26,9 +26,7 @@
         </authentication-provider>
     </authentication-manager>
     
-    <beans:bean id="UserDetailsService" class="model.service.VavaUserDetailService">
-       
-    </beans:bean> 
-   
+    <beans:bean id="UserDetailsService" class="model.service.VavaUserDetailService">   
+    </beans:bean>    
  
 </beans:beans>

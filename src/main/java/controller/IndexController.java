@@ -1,16 +1,15 @@
 package controller;
 
-import java.util.ArrayList;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -24,6 +23,10 @@ public class IndexController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home() {
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+	String name = authentication.getName();
 
         List<User> listUsers = userDao.list();
         //List<User> listUsers = new ArrayList<>();
@@ -31,7 +34,7 @@ public class IndexController {
 
         ModelAndView model = new ModelAndView("home");
         model.addObject("userList", listUsers);
-        model.addObject("userAAA", u);
+        model.addObject("userAAA", name);
         return model;
     }
 

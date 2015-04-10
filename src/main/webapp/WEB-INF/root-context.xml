@@ -1,0 +1,71 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+ 
+http://www.springframework.org/schema/beans
+ 
+ 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+ 
+ 
+http://www.springframework.org/schema/context
+ 
+ 
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+ 
+ 
+http://www.springframework.org/schema/mvc
+ 
+ 
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    
+    <context:annotation-config />
+    <context:component-scan base-package="controller" />
+    <context:component-scan base-package="model.service"/>
+    
+    <!-- persistency -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/vava"/>
+        <property name="username" value="vos2"/>
+        <property name="password" value="123456"/>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="/resources/hibernate.cfg.xml" />
+        <!-- models -->
+        <property name="annotatedClasses">
+            <list>
+                    <value>model.entity.User</value>
+                    <value>model.entity.Role</value>
+            </list>
+        </property>
+    </bean>
+    
+    <tx:annotation-driven />
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- security -->
+     
+    <!-- DAO INJECTIONS -->
+    <bean id="userDao" class="model.entityDAO.implementation.UserDAOHib">
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
+    <bean id="roleDao" class="model.entityDAO.implementation.RoleDAOHib">
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
+ 
+    
+</beans>

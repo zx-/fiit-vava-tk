@@ -18,12 +18,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.GrantedAuthority;
-
+import org.springframework.stereotype.Component;
 /**
  *
  * @author Robert Cuprik <robertcuprik@hotmail.com>
  */
+@Component
 @Service
 @Transactional(readOnly = true)
 public class VavaUserDetailService implements UserDetailsService{
@@ -32,15 +35,41 @@ public class VavaUserDetailService implements UserDetailsService{
 
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDAO userDao;
+    
+    public VavaUserDetailService(){
+//        
+//        logger.debug("Constructor called");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/root-context.xml");        
+//        logger.debug("context found: "+context);
+//        try {       
+//            logger.debug("beans in context :");
+//            for(String s:context.getBeanDefinitionNames()){
+//                logger.debug("bean in context :"+s);
+//            }
+//            
+//            this.userDao = (UserDAO) context.getBean("userDao",UserDAO.class);
+//            
+//        } catch ( Exception e){
+//        
+//            logger.fatal(e);
+//        
+//        }
+    }
 
+    public VavaUserDetailService(UserDAO userDAO){
+    
+        this.userDao = userDAO;
+    
+    }
+    
     @Override
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException {
 
         logger.debug("LoadUserByUsername called with argument: "+login);
         
-        model.entity.User domainUser = userDAO.getUser(login);
+        model.entity.User domainUser = getUserDAO().getUser(login);
         if(domainUser!=null){
         
             logger.debug("LoadUserByUsername got user from userDAO: "+domainUser.toString());
@@ -101,6 +130,20 @@ public class VavaUserDetailService implements UserDetailsService{
             authorities.add(new SimpleGrantedAuthority(role));
         }
         return authorities;
+    }
+
+    /**
+     * @return the userDao
+     */
+    public UserDAO getUserDAO() {
+        return userDao;
+    }
+
+    /**
+     * @param userDAO the userDao to set
+     */
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDao = userDAO;
     }
 
 }

@@ -31,6 +31,6 @@
                 </c:forEach>             
             </table>
         </div>
-        <p>${userAAA.username}</p>
+        <p>${userAAA}</p>
     </body>
 </html>

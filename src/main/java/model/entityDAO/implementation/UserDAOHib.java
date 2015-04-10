@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
  
  
-class UserDAOHib implements UserDAO{
+public class UserDAOHib implements UserDAO{
 
     private static final Logger logger = Logger.getLogger(UserDAOHib.class);
     
