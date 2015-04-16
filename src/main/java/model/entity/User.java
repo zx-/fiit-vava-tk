@@ -13,6 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -49,6 +50,10 @@ public class User {
             @JoinColumn(name="role_id",referencedColumnName="id")
         })
     private Role role;
+    
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ClassRoom classRoom;
 
     /**
      * @return the user_id
@@ -112,6 +117,22 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    /**
+     * @return the classRoom
+     */
+    public ClassRoom getClassRoom() {
+        return classRoom;
+    }
+
+    /**
+     * @param classRoom the classRoom to set
+     */
+    public void setClassRoom(ClassRoom classRoom) {
+        this.classRoom = classRoom;
+    }
+
+
 
     
     

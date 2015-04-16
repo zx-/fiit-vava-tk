@@ -52,6 +52,7 @@
             <list>
                     <value>model.entity.User</value>
                     <value>model.entity.Role</value>
+                    <value>model.entity.ClassRoom</value>
             </list>
         </property>
     </bean>
@@ -70,6 +71,11 @@
         </constructor-arg>
     </bean>
     <bean id="roleDao" class="model.entityDAO.implementation.RoleDAOHib">
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
+    <bean id="classRoomDao" class="model.entityDAO.implementation.ClassRoomDAOHib" >
         <constructor-arg>
             <ref bean="sessionFactory" />
         </constructor-arg>

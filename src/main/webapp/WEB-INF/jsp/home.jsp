@@ -32,5 +32,7 @@
             </table>
         </div>
         <p>${userAAA}</p>
+        <p>${userB}</p>
+        <p>${userC}</p>
     </body>
 </html>

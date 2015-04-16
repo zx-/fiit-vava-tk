@@ -3,6 +3,9 @@ package controller;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import java.util.List;
+import model.entity.ClassRoom;
+import model.entity.Role;
+import model.entityDAO.ClassRoomDAO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +23,9 @@ public class IndexController {
 
     @Autowired
     private UserDAO userDao;
+    
+    @Autowired
+    private ClassRoomDAO classRoomDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home() {
@@ -28,13 +34,30 @@ public class IndexController {
 	                getAuthentication();
 	String name = authentication.getName();
 
+//        Role r = new Role();
+//        r.setRole("admin");
+//        ClassRoom c = new ClassRoom();
+//        c.setName("aa class");
+//        
+//        
+//        User u = new User();
+//        u.setEmail("aaa");
+//        u.setPassword("aaa");
+//        u.setUsername("aaa");
+//        u.setClassRoom(c);
+//        u.setRole(r);
+//        c.setTeacher(u);
+        
+//        userDao.saveOrUpdate(u);
+        
         List<User> listUsers = userDao.list();
         //List<User> listUsers = new ArrayList<>();
-        User u = userDao.getUser("aaa");
 
         ModelAndView model = new ModelAndView("home");
         model.addObject("userList", listUsers);
         model.addObject("userAAA", name);
+        model.addObject("userB", listUsers.get(0).getClassRoom().getName());
+        model.addObject("userC", listUsers.get(0).getClassRoom().getTeacher());
         return model;
     }
 
