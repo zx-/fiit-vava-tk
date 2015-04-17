@@ -55,6 +55,8 @@
                     <value>model.entity.ClassRoom</value>
                     <value>model.entity.Grade</value>
                     <value>model.entity.Subject</value>
+                    <value>model.entity.Attendance</value>
+                    <value>model.entity.Lesson</value>
             </list>
         </property>
     </bean>
