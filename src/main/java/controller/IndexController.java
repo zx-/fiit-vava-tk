@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Collection;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import java.util.List;
@@ -52,6 +53,8 @@ public class IndexController {
         
         List<User> listUsers = userDao.list();
         //List<User> listUsers = new ArrayList<>();
+        
+//        Collection<ClassRoom> clist = classRoomDao.getByTeacher(listUsers.get(0));
 
         ModelAndView model = new ModelAndView("home");
         model.addObject("userList", listUsers);

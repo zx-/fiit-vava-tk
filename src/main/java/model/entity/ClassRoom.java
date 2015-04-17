@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
  * @author Robert Cuprik <robertcuprik@hotmail.com>
  */
 @Entity
-@Table(name = "classes", uniqueConstraints = {
+@Table(name = "classrooms", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id") })
 public class ClassRoom {
     
@@ -42,6 +42,9 @@ public class ClassRoom {
     
     @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL)
     private Collection<User> students;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Subject> subjects;
 
     /**
      * @return the id
@@ -97,6 +100,20 @@ public class ClassRoom {
      */
     public void setStudents(Collection<User> students) {
         this.students = students;
+    }
+
+    /**
+     * @return the subjects
+     */
+    public Collection<Subject> getSubjects() {
+        return subjects;
+    }
+
+    /**
+     * @param subjects the subjects to set
+     */
+    public void setSubjects(Collection<Subject> subjects) {
+        this.subjects = subjects;
     }
     
 }

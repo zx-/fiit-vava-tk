@@ -5,6 +5,7 @@
  */
 package model.entity;
 
+import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -54,7 +56,14 @@ public class User {
     
     @ManyToOne(cascade = CascadeType.ALL)
     private ClassRoom classRoom;
+    
+    @OneToMany(cascade=CascadeType.ALL)
+    private Collection<Grade> grades;
 
+    
+    @OneToMany(cascade=CascadeType.ALL)
+    private Collection<Subject> teaching;
+    
     /**
      * @return the user_id
      */
@@ -130,6 +139,34 @@ public class User {
      */
     public void setClassRoom(ClassRoom classRoom) {
         this.classRoom = classRoom;
+    }
+
+    /**
+     * @return the grades
+     */
+    public Collection<Grade> getGrades() {
+        return grades;
+    }
+
+    /**
+     * @param grades the grades to set
+     */
+    public void setGrades(Collection<Grade> grades) {
+        this.grades = grades;
+    }
+
+    /**
+     * @return the teaching
+     */
+    public Collection<Subject> getTeaching() {
+        return teaching;
+    }
+
+    /**
+     * @param teaching the teaching to set
+     */
+    public void setTeaching(Collection<Subject> teaching) {
+        this.teaching = teaching;
     }
 
 
