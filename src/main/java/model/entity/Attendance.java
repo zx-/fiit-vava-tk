@@ -5,15 +5,12 @@
  */
 package model.entity;
 
-import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,24 +18,21 @@ import javax.persistence.Table;
  * @author Robert Cuprik <robertcuprik@hotmail.com>
  */
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "attendances")
+public class Attendance {
     
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int id;
-        
-    private int order;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    private User teacher;
+    private Lesson lesson;
+    
+    private boolean wasPresent;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    private ClassRoom classRoom;
+    private User student;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Collection<Lesson> lessons;
-    
     /**
      * @return the id
      */
@@ -54,46 +48,47 @@ public class Subject {
     }
 
     /**
-     * @return the order
+     * @return the lesson
      */
-    public int getOrder() {
-        return order;
+    public Lesson getLesson() {
+        return lesson;
     }
 
     /**
-     * @param order the order to set
+     * @param lesson the lesson to set
      */
-    public void setOrder(int order) {
-        this.order = order;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     /**
-     * @return the teacher
+     * @return the wasPresent
      */
-    public User getTeacher() {
-        return teacher;
+    public boolean isWasPresent() {
+        return wasPresent;
     }
 
     /**
-     * @param teacher the teacher to set
+     * @param wasPresent the wasPresent to set
      */
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
+    public void setWasPresent(boolean wasPresent) {
+        this.wasPresent = wasPresent;
     }
 
     /**
-     * @return the classRoom
+     * @return the student
      */
-    public ClassRoom getClassRoom() {
-        return classRoom;
+    public User getStudent() {
+        return student;
     }
 
     /**
-     * @param classRoom the classRoom to set
+     * @param student the student to set
      */
-    public void setClassRoom(ClassRoom classRoom) {
-        this.classRoom = classRoom;
+    public void setStudent(User student) {
+        this.student = student;
     }
+    
     
     
 }

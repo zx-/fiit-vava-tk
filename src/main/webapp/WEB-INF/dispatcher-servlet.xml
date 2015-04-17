@@ -54,6 +54,7 @@
                     <value>model.entity.Role</value>
                     <value>model.entity.ClassRoom</value>
                     <value>model.entity.Grade</value>
+                    <value>model.entity.Subject</value>
             </list>
         </property>
     </bean>

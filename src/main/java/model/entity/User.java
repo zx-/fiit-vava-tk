@@ -64,6 +64,9 @@ public class User {
     @OneToMany(cascade=CascadeType.ALL)
     private Collection<Subject> teaching;
     
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Attendance> attendances;
+    
     /**
      * @return the user_id
      */
@@ -167,6 +170,20 @@ public class User {
      */
     public void setTeaching(Collection<Subject> teaching) {
         this.teaching = teaching;
+    }
+
+    /**
+     * @return the attendances
+     */
+    public Collection<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    /**
+     * @param attendances the attendances to set
+     */
+    public void setAttendances(Collection<Attendance> attendances) {
+        this.attendances = attendances;
     }
 
 
