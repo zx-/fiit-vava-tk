@@ -15,4 +15,6 @@ public interface RoleDAO {
     
     public Role getRole(int id);
     
+    public void saveOrUpdate(Role r);
+    
 }

@@ -5,6 +5,7 @@
  */
 package model.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,7 +44,7 @@ public class ClassRoom {
     @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL)
     private Collection<User> students;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom")
     private Collection<Subject> subjects;
 
     /**
@@ -114,6 +115,17 @@ public class ClassRoom {
      */
     public void setSubjects(Collection<Subject> subjects) {
         this.subjects = subjects;
+    }
+    
+    public void addStudent(User u){
+    
+        if(this.students == null ){
+        
+            this.students = new ArrayList<>();
+        
+        }
+        this.students.add(u);
+    
     }
     
 }

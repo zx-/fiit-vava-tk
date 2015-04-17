@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  
 <html>
     <head>
@@ -30,9 +31,13 @@
                 </tr>
                 </c:forEach>             
             </table>
+            
+            <p>current user: ${userAAA}</p>
+            <p><a href="<c:url value="/user-login" />" > login</a></p>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <p><a href="<c:url value="/admin" />" > admin menu</a></p>
+            </sec:authorize>
+            
         </div>
-        <p>${userAAA}</p>
-        <p>${userB}</p>
-        <p>${userC}</p>
     </body>
 </html>

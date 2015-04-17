@@ -57,14 +57,14 @@ public class User {
     @ManyToOne(cascade = CascadeType.ALL)
     private ClassRoom classRoom;
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="student")
     private Collection<Grade> grades;
 
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher")
     private Collection<Subject> teaching;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="student")
     private Collection<Attendance> attendances;
     
     /**

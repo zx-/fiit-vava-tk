@@ -35,5 +35,10 @@ public class RoleDAOHib implements RoleDAO{
 	return role;
                 
     }
+
+    @Override
+    public void saveOrUpdate(Role r) {
+        sessionFactory.getCurrentSession().saveOrUpdate(r);
+    }
     
 }

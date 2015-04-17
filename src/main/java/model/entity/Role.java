@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
 public class Role {
     
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
     
@@ -81,7 +82,7 @@ public class Role {
     /**
      * @param userRoles the userRoles to set
      */
-    public void setUserRoles(Set userRoles) {
+    public void setUserRoles(Set<User> userRoles) {
         this.userRoles = userRoles;
     }
     

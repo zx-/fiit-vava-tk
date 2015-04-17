@@ -23,6 +23,7 @@
     <context:annotation-config />
     <context:component-scan base-package="controller" />
     <context:component-scan base-package="model.service"/>
+    <context:component-scan base-package="model.utils"/>
     
     
     <!-- set folder and stuff for views -->

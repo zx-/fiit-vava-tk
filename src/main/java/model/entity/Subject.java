@@ -36,7 +36,7 @@ public class Subject {
     @ManyToOne(cascade = CascadeType.ALL)
     private ClassRoom classRoom;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="subject")
     private Collection<Lesson> lessons;
     
     /**

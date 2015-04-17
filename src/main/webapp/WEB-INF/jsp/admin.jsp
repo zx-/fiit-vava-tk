@@ -41,6 +41,11 @@
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
 	</c:if>
+        
+        <p>
+            <a href="<c:url value="/admin/populate" />">Populate DATABASE</a> | 
+            <a href="<c:url value="/" />">Home</a>
+        </p>
  
 </body>
 </html>

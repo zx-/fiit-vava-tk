@@ -46,7 +46,7 @@ public class Lesson {
         setDate(new Date());
     }
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="lesson")
     private Collection<Attendance> attendances;
 
     /**

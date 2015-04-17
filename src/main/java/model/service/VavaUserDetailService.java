@@ -8,6 +8,7 @@ package model.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import model.entity.Role;
 import model.entityDAO.UserDAO;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -93,7 +94,7 @@ public class VavaUserDetailService implements UserDetailsService{
                 accountNonExpired,
                 credentialsNonExpired,
                 accountNonLocked,
-                getAuthorities(domainUser.getRole().getId())
+                getAuthorities(domainUser.getRole())
         );
         
         
@@ -101,24 +102,16 @@ public class VavaUserDetailService implements UserDetailsService{
         return u;
     }
 
-    public Collection<GrantedAuthority> getAuthorities(Integer role) {
+    public Collection<GrantedAuthority> getAuthorities(Role role) {
         List<GrantedAuthority> authList = getGrantedAuthorities(getRoles(role));
         return authList;
     }
 
-    public List<String> getRoles(Integer role) {
+    public List<String> getRoles(Role role) {
 
         List<String> roles = new ArrayList<>();
 
-        if(role >= 1)
-            roles.add("ROLE_STUDENT");
-        
-        if(role >= 2)
-            roles.add("ROLE_TEACHER");
-        
-        if(role >= 3)
-            roles.add("ROLE_ADMIN");
-        
+        roles.add(role.getRole());        
         
         return roles;
     }

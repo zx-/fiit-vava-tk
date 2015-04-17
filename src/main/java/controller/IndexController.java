@@ -7,10 +7,13 @@ import java.util.List;
 import model.entity.ClassRoom;
 import model.entity.Role;
 import model.entityDAO.ClassRoomDAO;
+import model.utils.DBPopulator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,13 +30,17 @@ public class IndexController {
     
     @Autowired
     private ClassRoomDAO classRoomDao;
+    
+    @Autowired
+    private DBPopulator populator;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home() {
         
         Authentication authentication = SecurityContextHolder.getContext().
 	                getAuthentication();
-	String name = authentication.getName();
+        
+        
 
 //        Role r = new Role();
 //        r.setRole("admin");
@@ -58,18 +65,75 @@ public class IndexController {
 
         ModelAndView model = new ModelAndView("home");
         model.addObject("userList", listUsers);
-        model.addObject("userAAA", name);
-        model.addObject("userB", listUsers.get(0).getClassRoom().getName());
-        model.addObject("userC", listUsers.get(0).getClassRoom().getTeacher());
+        
+        if(listUsers.isEmpty()){
+        
+            User u = new User();
+            u.setEmail("admin@mail.com");
+            u.setUsername("admin");
+            u.setPassword("admin");
+            Role r = new Role();
+            r.setRole("ROLE_ADMIN");
+            u.setRole(r);
+            userDao.saveOrUpdate(u);
+        
+        }
+        
+        logger.debug("Printing student classes");
+        
+        for(User u:listUsers){
+        
+            if("ROLE_STUDENT".equals(u.getRole().getRole())){
+            
+                logger.debug(u.getClassRoom());
+            
+            }
+        
+        }
+        
+        if(authentication instanceof AnonymousAuthenticationToken){        
+            
+            String name = (String) authentication.getPrincipal();
+            model.addObject("userAAA", name);
+        
+        } else {
+        
+            UserDetails name = (UserDetails) authentication.getPrincipal();
+            model.addObject("userAAA", name);
+        
+        }
+        
         return model;
     }
 
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Hello World");
         model.addObject("message", "This is protected page!");
+        model.setViewName("admin");
+
+        return model;
+
+    }
+    
+    @RequestMapping(value = "/admin/populate", method = RequestMethod.GET)
+    public ModelAndView adminPopulate() {
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring Security Hello World");
+        
+        if(populator.populate()){
+        
+            model.addObject("message", "Database Populated");
+            
+        } else {
+        
+            model.addObject("message", "Database was not populated");
+        
+        }
+        
         model.setViewName("admin");
 
         return model;
