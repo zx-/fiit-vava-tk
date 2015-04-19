@@ -28,7 +28,7 @@ public class Subject {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
         
-    private int order;
+    private int subjectOrder;
     
     @ManyToOne(cascade = CascadeType.ALL)
     private User teacher;
@@ -38,6 +38,8 @@ public class Subject {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="subject")
     private Collection<Lesson> lessons;
+    
+    private String name;
     
     /**
      * @return the id
@@ -54,17 +56,17 @@ public class Subject {
     }
 
     /**
-     * @return the order
+     * @return the subjectOrder
      */
-    public int getOrder() {
-        return order;
+    public int getSubjectOrder() {
+        return subjectOrder;
     }
 
     /**
-     * @param order the order to set
+     * @param subjectOrder the subjectOrder to set
      */
-    public void setOrder(int order) {
-        this.order = order;
+    public void setSubjectOrder(int subjectOrder) {
+        this.subjectOrder = subjectOrder;
     }
 
     /**
@@ -93,6 +95,20 @@ public class Subject {
      */
     public void setClassRoom(ClassRoom classRoom) {
         this.classRoom = classRoom;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     
     

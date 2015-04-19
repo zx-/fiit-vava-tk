@@ -4,6 +4,7 @@ import java.util.Collection;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import model.entity.ClassRoom;
 import model.entity.Role;
 import model.entityDAO.ClassRoomDAO;
@@ -138,6 +139,20 @@ public class IndexController {
 
         return model;
 
+    }
+    
+    @RequestMapping("/role_resolve")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+        if (request.isUserInRole("ROLE_STUDENT")) {
+            return "redirect:/student";
+        }
+        if (request.isUserInRole("ROLE_TEACHER")) {
+            return "redirect:/teacher";
+        }
+        return "redirect:/";
     }
     
 

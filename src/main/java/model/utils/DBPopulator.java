@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import model.entity.ClassRoom;
 import model.entity.Role;
+import model.entity.Subject;
 import model.entity.User;
 import model.entityDAO.ClassRoomDAO;
 import model.entityDAO.RoleDAO;
@@ -99,6 +100,27 @@ public class DBPopulator {
                 
                 }
                 classrooms.add(c);
+            
+            }
+            
+            for(int i = 0; i < 3; i++){
+            
+                for( int j = 0; j < 3; j++){                
+                    
+                    Subject sub = new Subject();
+                    
+                    sub.setSubjectOrder((j+i) % 3);
+                    sub.setName("Subject"+i);
+                    
+                    sub.setTeacher(teachers.get(i));
+                    teachers.get(i).addTeaching(sub); 
+                    
+                    sub.setClassRoom(classrooms.get(j));
+                    classrooms.get(j).addSubject(sub);                    
+                    
+                    
+                
+                }                
             
             }
             

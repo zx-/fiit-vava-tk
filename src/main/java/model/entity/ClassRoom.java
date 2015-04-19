@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -44,7 +45,8 @@ public class ClassRoom {
     @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL)
     private Collection<User> students;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom",fetch=FetchType.EAGER)
     private Collection<Subject> subjects;
 
     /**
@@ -126,6 +128,17 @@ public class ClassRoom {
         }
         this.students.add(u);
     
+    }
+
+    public void addSubject(Subject sub) {
+        
+        if(this.subjects == null ){
+        
+            this.subjects = new ArrayList<>();
+        
+        }
+        this.subjects.add(sub);
+        
     }
     
 }

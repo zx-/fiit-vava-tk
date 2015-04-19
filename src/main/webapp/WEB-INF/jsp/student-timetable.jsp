@@ -1,3 +1,9 @@
+<%-- 
+    Document   : student-timetable
+    Created on : Apr 19, 2015, 11:18:11 PM
+    Author     : Robert Cuprik <robertcuprik@hotmail.com>
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="h" %>
@@ -18,34 +24,20 @@
         
         <h:menu_tag />
         
-        <div align="center">
-            
-            <h1>User List</h1>
+        <div class="container">
+            <h1><spring:message code="student.timetable" /></h1>
+            <h2>${classroom}</h2>
             <table border="1">
-                <th>User_id</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                 
-                <c:forEach var="user" items="${userList}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${user.username}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role.role}</td>
-                             
-                </tr>
-                </c:forEach>             
+                    <th>num</th>
+                    <th>name</th>
+                <c:forEach var="subject" items="${timetable}" varStatus="status">
+                    <tr>
+                        <td>${subject.subjectOrder}</td>
+                        <td>${subject.name}</td>                          
+                    </tr>
+                </c:forEach> 
             </table>
-            
-            <p>current user: ${userAAA}</p>
-            
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <p><a href="<c:url value="/admin" />" > admin menu</a></p>
-            </sec:authorize>
-                
-            Language : <a href="?locale=en">English</a>|<a href="?locale=sk">Slovak</a>
-            
         </div>
+        
     </body>
 </html>

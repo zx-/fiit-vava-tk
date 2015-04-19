@@ -37,3 +37,27 @@ and open the template in the editor.
 	-moz-border-radius: 2px;
 	border: 1px solid #000;
 }
+
+
+.nav > li > span {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.navbar-nav > li > span {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+
+.navbar-nav > li > span {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#main-menu{
+    
+    margin-top: 10px;
+    
+}

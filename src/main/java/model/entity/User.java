@@ -5,6 +5,7 @@
  */
 package model.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -184,6 +185,18 @@ public class User {
      */
     public void setAttendances(Collection<Attendance> attendances) {
         this.attendances = attendances;
+    }
+
+    public void addTeaching(Subject sub) {
+   
+        if(this.teaching == null){
+        
+            this.teaching = new ArrayList<>();
+        
+        }
+        
+        this.teaching.add(sub);
+    
     }
 
 
