@@ -9,6 +9,7 @@ import model.entity.Role;
 import model.entityDAO.RoleDAO;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -28,6 +29,7 @@ public class RoleDAOHib implements RoleDAO{
     }
 
     @Override
+    @Transactional
     public Role getRole(int id) {
         
         Role role = 
@@ -37,6 +39,7 @@ public class RoleDAOHib implements RoleDAO{
     }
 
     @Override
+    @Transactional
     public void saveOrUpdate(Role r) {
         sessionFactory.getCurrentSession().saveOrUpdate(r);
     }

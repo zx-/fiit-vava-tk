@@ -21,4 +21,5 @@ public interface ClassRoomDAO {
     
     public void saveOrUpdate(ClassRoom c);
     
+    public ClassRoom getByName(String name);    
 }

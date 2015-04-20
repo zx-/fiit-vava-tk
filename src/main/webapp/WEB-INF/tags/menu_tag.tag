@@ -55,6 +55,12 @@
             <li><a href="<c:url value="/student/timetable" />"> <spring:message code="student.timetable" /></a></li> 
             
         </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_TEACHER')">
+            
+            <li><a href="<c:url value="/teacher/timetable" />"> <spring:message code="student.timetable" /></a></li> 
+            <li><a href="<c:url value="/class-room" />"> <spring:message code="common.class-room" /></a></li> 
+            
+        </sec:authorize>
                     
         <li><a href="javascript:formSubmit()"> <spring:message code="utils.logout" /></a></li>    
     

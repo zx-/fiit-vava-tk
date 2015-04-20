@@ -35,7 +35,8 @@ public class DBPopulator {
     @Autowired
     private RoleDAO roleDao;
     
-    @Autowired ClassRoomDAO classRoomDao;
+    @Autowired 
+    private ClassRoomDAO classRoomDao;
     
     
 

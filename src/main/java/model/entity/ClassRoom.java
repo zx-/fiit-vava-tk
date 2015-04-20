@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -42,11 +44,13 @@ public class ClassRoom {
     @Column()
     private String name;
     
-    @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private Collection<User> students;
     
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom",fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Subject> subjects;
 
     /**

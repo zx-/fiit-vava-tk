@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -62,7 +63,7 @@ public class User {
     private Collection<Grade> grades;
 
     
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher",fetch=FetchType.EAGER)
     private Collection<Subject> teaching;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="student")

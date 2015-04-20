@@ -5,7 +5,8 @@
  */
 package controller;
 
-import model.entity.ClassRoom;
+import java.util.Collection;
+import model.entity.Subject;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import org.apache.log4j.Logger;
@@ -23,18 +24,18 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Robert Cuprik <robertcuprik@hotmail.com>
  */
 @Controller
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("/teacher")
+public class TeacherController {
     
-    private static final Logger logger = Logger.getLogger(StudentController.class);
+    private static final Logger logger = Logger.getLogger(TeacherController.class);
 
     @Autowired
     private UserDAO userDao;
- 
+    
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView root() {
     
-        ModelAndView model = new ModelAndView("student-root");
+        ModelAndView model = new ModelAndView("teacher-root");
         
         
         return model;
@@ -48,19 +49,19 @@ public class StudentController {
 	                getAuthentication();
         UserDetails name = (UserDetails) authentication.getPrincipal();
             
-        User student = userDao.getUser(name.getUsername());
-        ClassRoom classRoom = student.getClassRoom();
+        User teacher = userDao.getUser(name.getUsername());
+        Collection<Subject> subjects = teacher.getTeaching();
+        
+        
+        
         
 
-        ModelAndView model = new ModelAndView("student-timetable");
-        model.addObject("classroom", classRoom.getName());
-        model.addObject("timetable",classRoom.getSubjects());
+        ModelAndView model = new ModelAndView("teacher-timetable");
+        //model.addObject("classroom", classRoom.getName());
+        model.addObject("timetable",subjects);
 
         return model;
 
     }
-    
-    
-    
     
 }
