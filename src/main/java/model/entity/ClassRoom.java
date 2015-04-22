@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Fetch;
@@ -51,6 +52,7 @@ public class ClassRoom {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom",fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @OrderBy("subjectOrder")
     private Collection<Subject> subjects;
 
     /**

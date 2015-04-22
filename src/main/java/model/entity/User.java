@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -64,6 +65,7 @@ public class User {
 
     
     @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher",fetch=FetchType.EAGER)
+    @OrderBy("subjectOrder")
     private Collection<Subject> teaching;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="student")

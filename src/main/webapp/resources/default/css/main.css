@@ -27,16 +27,7 @@ and open the template in the editor.
 	background-color: #d9edf7;
 	border-color: #bce8f1;
 }
- 
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
+
 
 
 .nav > li > span {
@@ -59,5 +50,29 @@ and open the template in the editor.
 #main-menu{
     
     margin-top: 10px;
+    
+}
+table tr td{
+    
+    padding: 3px;
+    text-align: center;
+    
+}
+
+table tr th{
+    
+    padding: 3px;
+    text-align: center;
+    
+}
+footer{
+    
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 80px;
+    background-color: #F5F5F5;
+    padding-top: 20px;
+    text-align: center;
     
 }

@@ -22,7 +22,7 @@
                     <tr>
                         <td>${subject.subjectOrder}</td>
                         <td>${subject.name}</td>                          
-                        <td>${subject.classRoom.name}</td>                          
+                        <td><a href="<c:url value="/class-room/${subject.classRoom.name}" />">${subject.classRoom.name}</a></td>                          
                     </tr>
                 </c:forEach> 
             </table>
