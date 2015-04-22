@@ -85,6 +85,11 @@
             <ref bean="sessionFactory" />
         </constructor-arg>
     </bean>
+    <bean id="subjectDao" class="model.entityDAO.implementation.SubjectDAOHib" >
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
   
   
     <!-- LOCALES -->

@@ -22,6 +22,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -66,9 +68,11 @@ public class User {
     
     @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher",fetch=FetchType.EAGER)
     @OrderBy("subjectOrder")
+    @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Subject> teaching;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="student")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="student",fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Attendance> attendances;
     
     /**
@@ -199,6 +203,19 @@ public class User {
         }
         
         this.teaching.add(sub);
+    
+    }
+    
+    public void addAttendance(Attendance a){
+    
+        if(this.attendances == null){
+        
+            this.attendances = new ArrayList<>();
+        
+        }
+        
+        this.attendances.add(a);
+    
     
     }
 

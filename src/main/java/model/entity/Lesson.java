@@ -5,6 +5,7 @@
  */
 package model.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Lesson {
     @ManyToOne(cascade = CascadeType.ALL)
     private User substitution = null;
     
+    private String description;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -117,6 +119,32 @@ public class Lesson {
      */
     public void setAttendances(Collection<Attendance> attendances) {
         this.attendances = attendances;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public void addAttendance(Attendance a){
+    
+        if(this.attendances == null){
+        
+            this.attendances = new ArrayList<>();
+        
+        }
+        
+        this.attendances.add(a);
+    
     }
     
 }
