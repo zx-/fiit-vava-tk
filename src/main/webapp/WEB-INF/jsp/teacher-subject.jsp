@@ -17,17 +17,14 @@
 
     <h1>${subject}</h1>
     <h2>${classRoom}</h2>
-
-    <c:if test="${not empty lessons}">
-
-        has Lessons fASDFASDFASDF
-
-    </c:if>
-
+ 
+    add new lesson:
     <c:url var="post_url"  value="/${actionPath}" />
     <form:form method="post" action="${post_url}" modelAttribute="addLessonForm">
 
         <form:input path="description" />
+        <br/>
+        attendance:
         <c:forEach items="${addLessonForm.students}" var="student" varStatus="status">
 
             <br/>
@@ -42,6 +39,18 @@
         <input value="Save" type="submit">
 
     </form:form>
+
+    <c:if test="${not empty lessons}">
+
+        <h3>Lessons:</h3>
+        
+        <ul>
+            <c:forEach items="${lessons}" var="l" varStatus="status">
+                <li>${l.date}: ${l.description}</li>
+            </c:forEach>
+        </ul>
+
+    </c:if>
 
 
 

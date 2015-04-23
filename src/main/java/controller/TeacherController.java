@@ -8,6 +8,7 @@ package controller;
 import controller.form.AddLessonForm;
 import controller.form.AddLessonFormStudent;
 import java.util.Collection;
+import java.util.Date;
 import model.entity.Attendance;
 import model.entity.ClassRoom;
 import model.entity.Lesson;
@@ -164,6 +165,8 @@ public class TeacherController {
         
         }
         
+        lesson.setDate(new Date());
+        lesson.setSubject(sub);
         sub.addLesson(lesson);
         
         subjectDao.saveOrUpdate(sub);
