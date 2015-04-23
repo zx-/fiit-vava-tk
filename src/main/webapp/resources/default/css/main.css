@@ -8,6 +8,12 @@ and open the template in the editor.
     Author     : Robert Cuprik <robertcuprik@hotmail.com>
 */
 
+html,body{
+    
+    height: 100%;
+    
+}
+
 .error {
 	padding: 15px;
 	margin-bottom: 20px;
@@ -65,14 +71,28 @@ table tr th{
     text-align: center;
     
 }
+.wrapper {
+    
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -80px;
+    
+}
+
+footer, .push{    
+    
+    height: 80px;
+    
+}
+
 footer{
     
-    position: absolute;
-    bottom: 0px;
     width: 100%;
-    height: 80px;
     background-color: #F5F5F5;
     padding-top: 20px;
     text-align: center;
+    position: absolute;
+    bottom: 0px;
     
 }

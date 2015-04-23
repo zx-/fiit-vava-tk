@@ -146,18 +146,21 @@ public class TeacherController {
         Lesson lesson = new Lesson();
         lesson.setDescription(addLessonForm.getDescription());
         
+                
         for(AddLessonFormStudent as :addLessonForm.getStudents()){
         
             Attendance a = new Attendance();
             User s = userDao.get(as.getUserId());
             
-            a.setLesson(lesson);
+            //a.setLesson(lesson);
             lesson.addAttendance(a);
             
-            a.setStudent(s);
+            //a.setStudent(s);
             s.addAttendance(a);
             
             a.setWasPresent(as.isPresent());
+            
+            userDao.saveOrUpdate(s);
         
         }
         

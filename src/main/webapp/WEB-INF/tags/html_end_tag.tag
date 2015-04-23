@@ -15,6 +15,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+    
+<div class="push"></div>
+</div>
+
     <footer class="footer">
       <div class="container">
         <p class="text-muted">

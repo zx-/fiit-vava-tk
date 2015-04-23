@@ -25,5 +25,6 @@
         <title>Vava Triedna kniha</title>
     </head>
     <body>
+        <div id="wrapper">
         
         <h:menu_tag />

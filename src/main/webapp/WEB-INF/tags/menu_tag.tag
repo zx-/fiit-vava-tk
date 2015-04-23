@@ -34,37 +34,37 @@
       <ul class="nav navbar-nav">
         <sec:authorize access="isAuthenticated()"> 
         
-        <c:url value="/j_spring_security_logout" var="logoutUrl" />
- 
-	<!-- csrt for log out-->
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-	  <input type="hidden" 
-		name="${_csrf.parameterName}"
-		value="${_csrf.token}" />
-	</form>
- 
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-        
-        <li><span><sec:authentication property="principal.username" /><span></li>
-        <sec:authorize access="hasRole('ROLE_STUDENT')">
-            
-            <li><a href="<c:url value="/student/timetable" />"> <spring:message code="student.timetable" /></a></li> 
-            
+            <c:url value="/j_spring_security_logout" var="logoutUrl" />
+
+            <!-- csrt for log out-->
+            <form action="${logoutUrl}" method="post" id="logoutForm">
+              <input type="hidden" 
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}" />
+            </form>
+
+            <script>
+                    function formSubmit() {
+                            document.getElementById("logoutForm").submit();
+                    }
+            </script>
+
+            <li><span><sec:authentication property="principal.username" /><span></li>
+            <sec:authorize access="hasRole('ROLE_STUDENT')">
+
+                <li><a href="<c:url value="/student/timetable" />"> <spring:message code="student.timetable" /></a></li> 
+
+            </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_TEACHER')">
+
+                <li><a href="<c:url value="/teacher/timetable" />"> <spring:message code="student.timetable" /></a></li> 
+                <li><a href="<c:url value="/class-room" />"> <spring:message code="common.class-room" /></a></li> 
+
+            </sec:authorize>
+
+            <li><a href="javascript:formSubmit()"> <spring:message code="utils.logout" /></a></li>    
+
         </sec:authorize>
-            <sec:authorize access="hasRole('ROLE_TEACHER')">
-            
-            <li><a href="<c:url value="/teacher/timetable" />"> <spring:message code="student.timetable" /></a></li> 
-            <li><a href="<c:url value="/class-room" />"> <spring:message code="common.class-room" /></a></li> 
-            
-        </sec:authorize>
-                    
-        <li><a href="javascript:formSubmit()"> <spring:message code="utils.logout" /></a></li>    
-    
-    </sec:authorize>
     <sec:authorize access="!isAuthenticated()"> 
         
         <li><span><spring:message code="welcome.greeting" /></span></li> 
