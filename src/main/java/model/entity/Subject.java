@@ -34,13 +34,13 @@ public class Subject {
         
     private int subjectOrder;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User teacher;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ClassRoom classRoom;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="subject",fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="subject",fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Lesson> lessons;
     
@@ -142,5 +142,25 @@ public class Subject {
     
     }
     
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if ( other == null || getClass() != other.getClass()) 
+            return false;
+
+        final Subject s = (Subject) other;
+
+        if ( !s.getName().equals( getName() ) ) return false;
+        if ( !s.getClassRoom().equals( getClassRoom() ) ) return false;
+        if ( !s.getTeacher().equals( getTeacher()) ) return false;
+        
+        return true;
+    }
+
+    public int hashCode() {
+        int result;
+        result = getName().hashCode()*17 + getClassRoom().hashCode()*29;
+        return result;
+    }
+
     
 }

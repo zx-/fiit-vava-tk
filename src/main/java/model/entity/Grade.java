@@ -28,13 +28,13 @@ public class Grade {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
     
-    @Column(name = "value", unique = true, nullable = false)
+    @Column(name = "value", unique = false, nullable = false)
     private int value;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private User student;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Subject subject;
 
     /**
@@ -91,6 +91,13 @@ public class Grade {
      */
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+    
+    @Override
+    public String toString(){
+    
+        return Integer.toString(this.getValue());
+    
     }
     
 }

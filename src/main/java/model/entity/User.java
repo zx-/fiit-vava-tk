@@ -66,12 +66,12 @@ public class User {
     private Collection<Grade> grades;
 
     
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher",fetch=FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="teacher",fetch=FetchType.LAZY)
     @OrderBy("subjectOrder")
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Subject> teaching;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="student",fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="student",fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Attendance> attendances;
     
@@ -218,9 +218,70 @@ public class User {
     
     
     }
+    
+    
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if ( !(other instanceof User) ) return false;
+
+        final User u = (User) other;
+
+        if ( !u.getUsername().equals( getUsername()) ) return false;
+        if ( !u.getEmail().equals( getEmail()) ) return false;
+
+        return true;
+    }
+
+//    @Override
+//    public int hashCode() {
+//        int result;
+//        result = getUsername().hashCode() + 27 * getEmail().hashCode();
+//        return result;
+//    }
+
+    public void addGrade(Grade g) {
+  
+        if(this.grades == null){
+        
+            this.grades = new ArrayList<>();
+        
+        }
+        
+        this.grades.add(g);
+    
+    }
 
 
-
+    public Collection<Grade> getGradesBySubject(Subject s){
+    
+        ArrayList<Grade> gr = new ArrayList<>();
+        
+        for(Grade g:getGrades()){
+        
+            if(g.getSubject().equals(s))
+                gr.add(g);
+        
+        }
+        
+        return gr;
+    
+    }
+    
+     public Collection<Attendance> getAttendanceBySubject(Subject s){
+    
+        ArrayList<Attendance> gr = new ArrayList<>();
+        
+        for(Attendance g:getAttendances()){
+        
+            if(g.getLesson().getSubject().equals(s))
+                gr.add(g);
+        
+        }
+        
+        return gr;
+    
+    }
     
     
 }

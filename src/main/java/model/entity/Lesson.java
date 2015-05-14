@@ -32,7 +32,8 @@ public class Lesson {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    //@ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
     
     @ManyToOne(cascade = CascadeType.ALL)
@@ -145,6 +146,18 @@ public class Lesson {
         
         this.attendances.add(a);
     
+    }
+    
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if ( !(other instanceof Lesson) ) return false;
+
+        final Lesson l = (Lesson) other;
+
+        if ( !l.getSubject().equals( getSubject() ) ) return false;
+        if ( !l.getDescription().equals( getDescription() ) ) return false;
+        
+        return true;
     }
     
 }

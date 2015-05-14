@@ -45,12 +45,12 @@ public class ClassRoom {
     @Column()
     private String name;
     
-    @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<User> students;
     
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom",fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="classRoom",fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     @OrderBy("subjectOrder")
     private Collection<Subject> subjects;
@@ -145,6 +145,25 @@ public class ClassRoom {
         }
         this.subjects.add(sub);
         
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if ( !(other instanceof ClassRoom) ) return false;
+
+        final ClassRoom c = (ClassRoom) other;
+
+        if ( !c.getName().equals( getName() ) ) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        result = getName().hashCode();
+        return result;
     }
     
 }

@@ -12,6 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.transform.ResultTransformer;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Attendance {
     
     private boolean wasPresent;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User student;
 
     /**
@@ -89,6 +90,25 @@ public class Attendance {
         this.student = student;
     }
     
+    
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if ( !(other instanceof Attendance) ) return false;
+
+        final Attendance at = (Attendance) other;
+
+        if ( !at.getLesson().equals( getLesson() ) ) return false;
+        if ( !at.getStudent().equals( getStudent() ) ) return false;
+
+        return true;
+    }
+
+    public int hashCode() {
+        int result;
+        result = getStudent().hashCode();
+        result = 29 * result + getLesson().hashCode();
+        return result;
+    }
     
     
 }
