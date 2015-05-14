@@ -5,15 +5,22 @@
  */
 package controller;
 
+import java.util.Collection;
+import model.entity.Attendance;
 import model.entity.ClassRoom;
+import model.entity.Subject;
 import model.entity.User;
+import model.entityDAO.AttendanceDAO;
+import model.entityDAO.SubjectDAO;
 import model.entityDAO.UserDAO;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +37,12 @@ public class StudentController {
 
     @Autowired
     private UserDAO userDao;
+    
+    @Autowired
+    private AttendanceDAO attendanceDAO;
+    
+    @Autowired
+    private SubjectDAO subjectDao;
  
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView root() {
@@ -42,7 +55,7 @@ public class StudentController {
     }
     
     @RequestMapping(value = "/timetable", method = RequestMethod.GET)
-    public ModelAndView adminPage() {
+    public ModelAndView timetable() {
         
         Authentication authentication = SecurityContextHolder.getContext().
 	                getAuthentication();
@@ -56,6 +69,29 @@ public class StudentController {
         model.addObject("classroom", classRoom.getName());
         model.addObject("timetable",classRoom.getSubjects());
 
+        return model;
+
+    }
+    
+    @RequestMapping(value = "/subject/{subject}-{subId}", method = RequestMethod.GET)
+    public ModelAndView subject(
+            @PathVariable String subject,
+            @PathVariable int subId) {
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User student = userDao.getUser(name.getUsername());
+             
+        Subject sub = subjectDao.getById(subId);
+        
+        Collection<Attendance> col = student.getAttendances();
+                
+        ModelAndView model = new ModelAndView("student-subject");
+        model.addObject("subjectName",subject);
+        model.addObject("grades",student.getGradesBySubject(sub));
+        model.addObject("attendance",student.getAttendanceBySubject(sub));
         return model;
 
     }

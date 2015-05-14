@@ -90,6 +90,12 @@
             <ref bean="sessionFactory" />
         </constructor-arg>
     </bean>
+    
+    <bean id="attendanceDao" class="model.entityDAO.implementation.AttendanceDAOHib" >
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
   
   
     <!-- LOCALES -->

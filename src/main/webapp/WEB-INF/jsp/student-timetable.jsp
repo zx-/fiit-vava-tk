@@ -21,7 +21,10 @@
                 <c:forEach var="subject" items="${timetable}" varStatus="status">
                     <tr>
                         <td>${subject.subjectOrder}</td>
-                        <td>${subject.name}</td>                          
+                        <td><a href="<c:url value="/student/subject/${subject.name}-${subject.id}" />" >
+                                ${subject.name}
+                            </a>     
+                        </td>                          
                     </tr>
                 </c:forEach> 
             </table>

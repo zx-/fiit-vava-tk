@@ -5,12 +5,16 @@
  */
 package controller;
 
+import controller.form.AddGradeForm;
 import controller.form.AddLessonForm;
 import controller.form.AddLessonFormStudent;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import model.entity.Attendance;
 import model.entity.ClassRoom;
+import model.entity.Grade;
 import model.entity.Lesson;
 import model.entity.Subject;
 import model.entity.User;
@@ -125,9 +129,47 @@ public class TeacherController {
         
         model.addObject("classRoom",classRoom.getName());
         model.addObject("subject",subject);
+        Collection<User> students = classRoom.getStudents();
+        
+        model.addObject("students",students);
+	Map<Integer,String> listStudents = new HashMap<>();
+        for(User s:students)
+            listStudents.put(s.getUser_id(), s.getUsername());
+        	
+        model.addObject("addGradeForm",new AddGradeForm());
+        model.addObject("listStudents",listStudents);       
+                
+        Map<User,Collection<Grade>> studentGrade = new HashMap<>();
+        for(User s:students){
+//            s.getGrades();
+            studentGrade.put(s, s.getGradesBySubject(sub));
+        
+        }
+        model.addObject("studentGrade",studentGrade);
         
         return model;
     
+    }
+    
+    @RequestMapping(value = "/{subject}-{subId}/{classRoomName}/addGrade", method = RequestMethod.POST)
+    public String addLessonToSubject(
+            @ModelAttribute("addLessonForm") AddGradeForm addGradeForm,
+            @PathVariable String subject,
+            @PathVariable int subId,
+            @PathVariable String classRoomName){
+        
+        User student = userDao.get(addGradeForm.getStudentId());  
+        Subject sub = subjectDao.getById(subId);
+        Grade g = new Grade();
+        g.setStudent(student);
+        g.setSubject(sub);
+        g.setValue(addGradeForm.getStudentGrade());
+        student.addGrade(g);
+        
+        userDao.saveOrUpdate(student);
+        
+        return "redirect:/teacher/"+subject+"-"+subId+"/"+classRoomName;
+        
     }
     
     @RequestMapping(value = "/{subject}-{subId}/{classRoomName}", method = RequestMethod.POST)
@@ -153,10 +195,10 @@ public class TeacherController {
             Attendance a = new Attendance();
             User s = userDao.get(as.getUserId());
             
-            //a.setLesson(lesson);
+            a.setLesson(lesson);
             lesson.addAttendance(a);
             
-            //a.setStudent(s);
+            a.setStudent(s);
             s.addAttendance(a);
             
             a.setWasPresent(as.isPresent());
