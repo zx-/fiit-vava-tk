@@ -53,7 +53,10 @@
             <sec:authorize access="hasRole('ROLE_STUDENT')">
 
                 <li><a href="<c:url value="/student/timetable" />"> <spring:message code="student.timetable" /></a></li> 
-
+                <li>
+                    <a href="<c:url value="/student/report" />">report</a> 
+                </li>
+                
             </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_TEACHER')">
 

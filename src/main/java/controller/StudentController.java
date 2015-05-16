@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import view.PDFView;
 
 /**
  *
@@ -97,6 +98,21 @@ public class StudentController {
     }
     
     
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public ModelAndView pdfTest(){
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User student = userDao.getUser(name.getUsername());
     
+        ModelAndView modelView = new ModelAndView(new PDFView());
+        
+        modelView.addObject("student", student);
+        
+        return modelView;
+    
+    }
     
 }

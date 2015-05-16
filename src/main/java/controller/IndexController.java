@@ -107,15 +107,6 @@ public class IndexController {
         
         return model;
     }
-    
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET)
-    public ModelAndView pdfTest(){
-    
-        ModelAndView modelView = new ModelAndView(new PDFView());
-        
-        return modelView;
-    
-    }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
