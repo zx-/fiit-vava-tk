@@ -21,7 +21,7 @@
     <h3><spring:message code="attendance" />:</h3>
     <ul>
         <c:forEach items="${attendance}" var="entry">
-             <li>${entry.wasPresent}</li>               
+             <li>${entry.lesson.date} - ${entry.wasPresent}</li>               
         </c:forEach>
     </ul>
 </div>

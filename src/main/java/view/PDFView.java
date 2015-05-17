@@ -129,6 +129,7 @@ public class PDFView extends AbstractView{
                 p.setIndentationLeft(30);
                 document.add(p);
 
+                a=0;
                 for(Grade g:grades){
                 
                     a+= g.getValue();

@@ -47,6 +47,7 @@ public class ClassRoom {
     
     @OneToMany(targetEntity=User.class, mappedBy="classRoom", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
+    @OrderBy("username")
     private Collection<User> students;
     
     

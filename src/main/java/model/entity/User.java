@@ -63,6 +63,7 @@ public class User {
     private ClassRoom classRoom;
     
     @OneToMany(cascade=CascadeType.ALL, mappedBy="student")
+    @OrderBy("id")
     private Collection<Grade> grades;
 
     
@@ -73,6 +74,7 @@ public class User {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="student",fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
+    @OrderBy("id")
     private Collection<Attendance> attendances;
     
     /**
