@@ -77,6 +77,22 @@ public class User {
     @OrderBy("id")
     private Collection<Attendance> attendances;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="student",fetch=FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Collection<HomeworkSubmission> homeworkSubmissions;
+    
+    public void addSubmission(HomeworkSubmission h){
+        
+        if(this.homeworkSubmissions == null){
+        
+            this.homeworkSubmissions = new ArrayList<>();
+        
+        }
+        
+        this.homeworkSubmissions.add(h);
+    
+    }
+    
     /**
      * @return the user_id
      */
@@ -283,6 +299,20 @@ public class User {
         
         return gr;
     
+    }
+
+    /**
+     * @return the homeworkSubmissions
+     */
+    public Collection<HomeworkSubmission> getHomeworkSubmissions() {
+        return homeworkSubmissions;
+    }
+
+    /**
+     * @param homeworkSubmissions the homeworkSubmissions to set
+     */
+    public void setHomeworkSubmissions(Collection<HomeworkSubmission> homeworkSubmissions) {
+        this.homeworkSubmissions = homeworkSubmissions;
     }
     
     

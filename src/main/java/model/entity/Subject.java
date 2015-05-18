@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -43,6 +44,11 @@ public class Subject {
     @OneToMany(cascade = CascadeType.ALL, mappedBy="subject",fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<Lesson> lessons;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="subject",fetch=FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OrderBy("id DESC")
+    private Collection<Homework> homeworks;
     
     private String name;
     
@@ -132,13 +138,39 @@ public class Subject {
     
     public void addLesson(Lesson l){
     
-            if(this.lessons == null){
+        if(this.lessons == null){
+
+            this.lessons = new ArrayList<>();
+
+        }
+
+        this.lessons.add(l);
+    
+    }
+    
+    /**
+     * @return the homeworks
+     */
+    public Collection<Homework> getHomeworks() {
+        return homeworks;
+    }
+
+    /**
+     * @param homeworks the homeworks to set
+     */
+    public void setHomeworks(Collection<Homework> homeworks) {
+        this.homeworks = homeworks;
+    }
+    
+    public void addHomework(Homework h){
+    
+        if(this.homeworks == null){
             
-                this.lessons = new ArrayList<>();
+                this.homeworks = new ArrayList<>();
             
             }
             
-            this.lessons.add(l);
+            this.homeworks.add(h);
     
     }
     
@@ -161,6 +193,7 @@ public class Subject {
         result = getName().hashCode()*17 + getClassRoom().hashCode()*29;
         return result;
     }
+
 
     
 }
