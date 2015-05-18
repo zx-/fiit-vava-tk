@@ -15,7 +15,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -52,6 +51,22 @@ public class Homework {
               }
 
         this.submissions.add(s);      
+    
+    }
+    
+        
+    public int getSubmittedCount(boolean submitted){
+    
+        int i = 0;
+        
+        for(HomeworkSubmission s:submissions){
+        
+            if(s.isSubmitted() == submitted)
+                i++;
+        
+        }
+        
+        return i;
     
     }
 

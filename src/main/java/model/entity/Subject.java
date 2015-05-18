@@ -194,6 +194,19 @@ public class Subject {
         return result;
     }
 
+    public Homework getHomeworkById(int hwId) {
+    
+        for(Homework h:this.getHomeworks()){
+        
+            if(h.getId() == hwId)
+                return h;
+        
+        }
+        
+        return null;
+    
+    }
+
 
     
 }

@@ -6,6 +6,7 @@
 package controller;
 
 import controller.form.AddGradeForm;
+import controller.form.AddHomeworkForm;
 import controller.form.AddLessonForm;
 import controller.form.AddLessonFormStudent;
 import java.util.Collection;
@@ -15,6 +16,8 @@ import java.util.Map;
 import model.entity.Attendance;
 import model.entity.ClassRoom;
 import model.entity.Grade;
+import model.entity.Homework;
+import model.entity.HomeworkSubmission;
 import model.entity.Lesson;
 import model.entity.Subject;
 import model.entity.User;
@@ -150,6 +153,109 @@ public class TeacherController {
         return model;
     
     }
+    
+    @RequestMapping(value = "/{subject}-{subId}/{classRoomName}/homeworks", method = RequestMethod.GET)
+    public ModelAndView homework(
+            @PathVariable String subject,
+            @PathVariable int subId,
+            @PathVariable String classRoomName) {   
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User teacher = userDao.getUser(name.getUsername());        
+        Subject sub = subjectDao.getById(subId);
+        ClassRoom classRoom = classRoomDao.getByName(classRoomName);
+        
+        AddHomeworkForm addHomeworkForm = new AddHomeworkForm();
+        
+        ModelAndView model = new ModelAndView(
+                "teacher-homeworks",
+                "addHomeworkForm",addHomeworkForm);
+        
+        model.addObject("actionPath","teacher/"+subject+"-"+subId+"/"+classRoomName+"/homeworks");
+        
+        
+        model.addObject("classRoom",classRoom.getName());
+        model.addObject("subject",subject);
+        
+        model.addObject("homeworks",sub.getHomeworks());
+        
+        return model;
+    }
+    
+    @RequestMapping(value = "/{subject}-{subId}/{classRoomName}/homeworks/{hwId}", method = RequestMethod.GET)
+    public ModelAndView homeworkDetail(
+            @PathVariable String subject,
+            @PathVariable int subId,
+            @PathVariable String classRoomName,
+            @PathVariable String hwId) {   
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User teacher = userDao.getUser(name.getUsername());        
+        Subject sub = subjectDao.getById(subId);
+        ClassRoom classRoom = classRoomDao.getByName(classRoomName);
+        
+        AddHomeworkForm addHomeworkForm = new AddHomeworkForm();
+        
+        ModelAndView model = new ModelAndView("teacher-subject-detail");
+      
+        
+        model.addObject("classRoom",classRoom.getName());
+        model.addObject("subject",subject);
+        model.addObject("hw",sub.getHomeworkById(Integer.parseInt(hwId)));
+        
+        return model;
+    }
+    
+    
+    
+    @RequestMapping(value = "/{subject}-{subId}/{classRoomName}/homeworks", method = RequestMethod.POST)
+    public String homeworkPost(
+            @ModelAttribute("addHomeworkForm") AddHomeworkForm addHomeworkForm,
+            @PathVariable String subject,
+            @PathVariable int subId,
+            @PathVariable String classRoomName) { 
+    
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User teacher = userDao.getUser(name.getUsername());        
+        Subject sub = subjectDao.getById(subId);
+        ClassRoom classRoom = classRoomDao.getByName(classRoomName);   
+        
+        Homework hw = new Homework();
+        
+        hw.setName(addHomeworkForm.getName());
+        hw.setTask(addHomeworkForm.getTask());
+        hw.setSubject(sub);
+        sub.addHomework(hw);
+        
+        for(User student:classRoom.getStudents()){
+        
+            HomeworkSubmission submission = new HomeworkSubmission();
+            submission.setHomework(hw);
+            submission.setStudent(student);
+            submission.setSubmitted(false);
+            student.addSubmission(submission);  
+            hw.addSubmission(submission);
+        
+        }
+               
+        
+        subjectDao.saveOrUpdate(sub);
+        
+        
+    
+        return "redirect:/teacher/"+subject+"-"+subId+"/"+classRoomName+"/homeworks";
+        
+        
+    } 
     
     @RequestMapping(value = "/{subject}-{subId}/{classRoomName}/addGrade", method = RequestMethod.POST)
     public String addLessonToSubject(

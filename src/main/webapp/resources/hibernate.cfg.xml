@@ -12,7 +12,6 @@
    
     <!-- console loggng -->
     <property name="hibernate.show_sql">true</property> 
-    <!--<property name="hibernate.enable_lazy_load_no_trans">true</property>-->
     <!--<property name="hbm2ddl.auto">create</property>-->
   </session-factory>
 </hibernate-configuration>

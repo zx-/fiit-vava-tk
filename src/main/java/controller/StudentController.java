@@ -5,9 +5,12 @@
  */
 package controller;
 
+import controller.form.AddHomeworkForm;
+import controller.form.EditHomeworkSubmissionForm;
 import java.util.Collection;
 import model.entity.Attendance;
 import model.entity.ClassRoom;
+import model.entity.HomeworkSubmission;
 import model.entity.Subject;
 import model.entity.User;
 import model.entityDAO.AttendanceDAO;
@@ -20,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +77,56 @@ public class StudentController {
         return model;
 
     }
+    
+    @RequestMapping(value = "/homeworks", method = RequestMethod.GET)
+    public ModelAndView homeworks() {
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User student = userDao.getUser(name.getUsername());
+        
+
+        ModelAndView model = new ModelAndView(
+                "student-homeworks",
+                "editHomeworkSubmissionForm", new EditHomeworkSubmissionForm()
+        );
+
+        model.addObject("hw", student.getHomeworkSubmissions());
+        model.addObject("actionPath", "student/homeworks");
+        
+        
+        return model;
+
+    }
+    
+    @RequestMapping(value = "/homeworks", method = RequestMethod.POST)
+    public String homeworksEdit(
+        @ModelAttribute("editHomeworkSubmissionForm") EditHomeworkSubmissionForm editHomeworkSubmissionForm
+            ){
+        
+        Authentication authentication = SecurityContextHolder.getContext().
+	                getAuthentication();
+        UserDetails name = (UserDetails) authentication.getPrincipal();
+            
+        User student = userDao.getUser(name.getUsername());
+        
+
+        HomeworkSubmission sub = student.getHomeworkSubmissionById(
+                editHomeworkSubmissionForm.getSubmissionId()
+        );
+        
+        sub.setSubmission(editHomeworkSubmissionForm.getSubmission());
+        sub.setSubmitted(true);
+        
+        userDao.saveOrUpdate(student);
+        
+        return "redirect:/student/homeworks";
+
+    }
+    
+    
     
     @RequestMapping(value = "/subject/{subject}-{subId}", method = RequestMethod.GET)
     public ModelAndView subject(

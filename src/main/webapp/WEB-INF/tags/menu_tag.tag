@@ -57,6 +57,12 @@
                     <a href="<c:url value="/student/report" />">report</a> 
                 </li>
                 
+                <li>
+                    <a href="<c:url value="/student/homeworks" />">
+                        <spring:message code="homeworks" />
+                    </a> 
+                </li>
+                
             </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_TEACHER')">
 

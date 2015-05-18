@@ -43,7 +43,7 @@
 
             <c:if test="${not empty lessons}">
 
-                <h3>Lessons:</h3>
+                <h3><spring:message code="lessons" />:</h3>
 
                 <ul>
                     <c:forEach items="${lessons}" var="l" varStatus="status">
@@ -72,7 +72,7 @@
             
             <c:if test="${not empty students}">
 
-                <h3>Grades:</h3>
+                <h3><spring:message code="grades" />:</h3>
 
                 <ul>                    
                     <c:forEach items="${studentGrade}" var="entry">
@@ -81,6 +81,13 @@
                 </ul>
 
             </c:if>
+                
+                <h3>
+                    <a href="${post_url}/homeworks">
+                        <spring:message code="homeworks" />
+                    </a>
+                </h3>
+                
 
         </div>
 

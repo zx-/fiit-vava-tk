@@ -314,6 +314,16 @@ public class User {
     public void setHomeworkSubmissions(Collection<HomeworkSubmission> homeworkSubmissions) {
         this.homeworkSubmissions = homeworkSubmissions;
     }
+
+    public HomeworkSubmission getHomeworkSubmissionById(int submissionId) {
+   
+        for(HomeworkSubmission h:getHomeworkSubmissions())
+            if(h.getId() == submissionId)
+                return h;
+        
+        return null;
+    
+    }
     
     
 }
