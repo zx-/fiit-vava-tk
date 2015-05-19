@@ -18,14 +18,21 @@
     <p>${hw.getTask()}</p>
     <p>submitted: ${hw.getSubmittedCount(true)}/${hw.getSubmittedCount(false)}<p>
    
-    
-    <ul>
+    <h3>Submissions:</h3>
+    <ul class="homework_submissions">
     <c:forEach var="sub" items="${hw.getSubmissions()}" varStatus="status">
       
-        <li>
-            ${sub.getStudent().getUsername()}
-            ${sub.isSubmitted()}
-            ${sub.getSubmission()}
+        <li class="homework_submission ${sub.isSubmitted()}">
+            <h4>
+                ${sub.getStudent().getUsername()}
+                <span>${sub.isSubmitted()}</span>
+            </h4>
+            <c:if test="${sub.isSubmitted()}">
+                <p>submission:</p>
+                <p class="submission">
+                ${sub.getSubmission()}
+                </p>
+            </c:if>
         </li>
         
     </c:forEach>

@@ -96,3 +96,138 @@ footer{
     /*bottom: 0px;*/
     
 }
+
+form.homework_form{
+    
+    width:280px;    
+    
+}
+
+form.homework_form div{
+    
+    clear:both;
+    
+}
+
+form.homework_form div input{
+    
+    float:right;
+    
+}
+
+ul.homeworks{
+    
+    padding-left:0;
+    width:280px;
+    
+}
+
+ul.homeworks li{
+    
+    margin-top: 15px;
+    border-top: 1px solid #333;
+    list-style-type: none;
+    
+}
+
+
+ul.homeworks li:last-of-type{
+    
+    border-bottom: 1px solid #333;
+    padding-bottom:5px;
+    
+}
+
+ul.homeworks li p{
+    
+    color:#333;
+    
+}
+
+ul.homeworks li p:last-of-type{
+    
+    text-align: right;
+    color: #999;
+    
+}
+
+ul.homework_submissions{
+    
+    padding-left:0;
+    width:280px;
+    
+}
+
+ul.homework_submissions li{
+    
+    border-top: 1px solid #333;
+    list-style-type: none;
+    padding: 0px 5px 5px 5px;
+    
+}
+
+ul.homework_submissions li.false{
+    
+    color:#990000;   
+    
+}
+
+ul.homework_submissions li:last-of-type{
+    
+    border-bottom: 1px solid #333;
+    
+}
+
+ul.homework_submissions li h4 span{
+    
+    float:right;
+    color:#999;
+    
+}
+
+ul.homework_submissions li p.submission{
+    
+    padding-left:15px;
+    
+}
+
+ul.student_homeworks {
+    
+    padding-left:0px;
+    width:280px;
+    
+}
+
+ul.student_homeworks li{
+    list-style-type: none;
+    padding-bottom:10px;
+    border-bottom: 1px solid #333;
+    margin-bottom:15px;
+}
+
+ul.student_homeworks li:last-of-type{
+    border-bottom: none;
+}
+
+ul.student_homeworks li h4 span{
+    
+    float:right;
+    color:#999;
+    
+}
+ul.student_homeworks li.true{
+    
+    color:green;
+    
+}
+
+ul.student_homeworks li.true h4 span{
+    
+    color:green;
+    
+}
+
+
+.hw-text-input{
+    width : 100%;
+}

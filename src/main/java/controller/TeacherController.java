@@ -202,7 +202,7 @@ public class TeacherController {
         
         AddHomeworkForm addHomeworkForm = new AddHomeworkForm();
         
-        ModelAndView model = new ModelAndView("teacher-subject-detail");
+        ModelAndView model = new ModelAndView("teacher-homework-detail");
       
         
         model.addObject("classRoom",classRoom.getName());

@@ -12,25 +12,26 @@
 <h:html_start_tag />
 <div class="container">
     
-    <ul>
+    <ul class="student_homeworks">
         
     <c:url var="post_url"  value="/${actionPath}" />
     <c:forEach var="sub" items="${hw}" varStatus="status">
       
-        <li>
+        <li class="${sub.isSubmitted()}">
             <h4>
             ${sub.getHomework().getSubject().getName()}
+            <span>${sub.isSubmitted()}</span>
             </h4>
             <h4>
             ${sub.getHomework().getName()}
             </h4>
-            <h4>
+            <h5>
             ${sub.getHomework().getTask()}
-            </h4>
+            </h5>
             <form:form method="post" action="${post_url}" modelAttribute="editHomeworkSubmissionForm">
                 
-                solution:
-                <form:input path="submission" value="${sub.getSubmission()}"/>   
+                <p>solution:</p>
+                <form:input class="hw-text-input" path="submission" value="${sub.getSubmission()}"/>   
                 <form:hidden path="submissionId" value="${sub.getId()}" />   
                 <br/>
                 <input value="Save" type="submit">

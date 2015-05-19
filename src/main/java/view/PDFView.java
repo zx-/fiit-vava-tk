@@ -161,7 +161,7 @@ public class PDFView extends AbstractView{
             
             p = new Paragraph(
                     String.format("Student was present on %d lessons from %d. His attendance was %f%%.",
-                            b,s.getAttendances().size(),((double)b)/s.getAttendances().size()),
+                            b,s.getAttendances().size(),((double)b)/s.getAttendances().size()*100),
                     normalFont);
             document.add(p);
             

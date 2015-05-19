@@ -18,33 +18,38 @@
     <h2>${classRoom}</h2>
     <h3><spring:message code="homeworks" /></h3>
     
-    <ul class="homeworks">
+    
         
+    Add homework:
     <c:url var="post_url"  value="/${actionPath}" />
-    <form:form method="post" action="${post_url}" modelAttribute="addHomeworkForm">
-        name:
-        <form:input path="name" />      
-        <br/>
-        task:
-        <form:input path="task" />      
-        <br/>
+    <form:form class="homework_form" method="post" action="${post_url}" modelAttribute="addHomeworkForm">
+        <div>
+        <label for="name">name:</label>
+            <form:input path="name" />      
+        </div>
+        <div>
+            <label for="task">task:</label>
+            <form:input path="task" />      
+        </div>
         <input value="Save" type="submit">
 
     </form:form>
         
+    <ul class="homeworks">   
     <c:forEach var="hw" items="${homeworks}" varStatus="status">
-      
-        <li>
-            <h4>
-                <a href="${post_url}/${hw.getId()}">
-                    ${hw.getName()}
-                </a> 
-            </h4>
-            <p>${hw.getTask()}<p>
-            <p>submitted: ${hw.getSubmittedCount(true)}/${hw.getSubmittedCount(false)}<p>
-            
-        </li>
         
+        <li>
+            <a href="${post_url}/${hw.getId()}">
+            <h4>
+                
+                ${hw.getName()}
+                
+            </h4>
+            <p>${hw.getTask()}</p>
+            <p>submitted: ${hw.getSubmittedCount(true)}/${hw.getSubmittedCount(false)}</p>
+            </a>
+        </li>
+         
     </c:forEach>
     </ul>
         
