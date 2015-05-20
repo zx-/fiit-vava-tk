@@ -231,3 +231,7 @@ ul.student_homeworks li.true h4 span{
 .hw-text-input{
     width : 100%;
 }
+
+.main-menu li a {
+    text-transform: lowercase;
+}

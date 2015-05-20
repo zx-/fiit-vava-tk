@@ -5,16 +5,21 @@
  */
 package model.entityDAO.implementation;
 
+import java.util.Collection;
 import model.entity.User;
 import model.entityDAO.UserDAO;
 import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import model.entity.Attendance;
+import model.entity.Grade;
+import model.entity.Subject;
 import org.apache.log4j.Logger;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -91,6 +96,36 @@ public class UserDAOHib implements UserDAO{
         logger.debug("Result: "+u);
         return u;        
         
+    }
+
+    @Override
+    public Collection<Attendance> getAttendanceBySubject(User user, Subject s) {
+    
+        
+        Property student = Property.forName("student");
+        Criteria criteria = 
+                sessionFactory.getCurrentSession().createCriteria(Attendance.class);
+        
+        criteria.add(null);
+        
+        return null;
+    
+    }
+
+    @Override
+    public Collection<Grade> getGradesBySubject(User user, Subject s) {
+    
+        Property student = Property.forName("student");
+        Property subject = Property.forName("subject");
+        Criteria criteria = 
+            sessionFactory.getCurrentSession().createCriteria(Grade.class);
+        
+        criteria.add(Restrictions.conjunction()
+                .add(student.eq(user))
+                .add(subject.eq(s)));
+        
+        return criteria.list();
+    
     }
 
 }

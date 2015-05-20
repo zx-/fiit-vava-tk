@@ -144,8 +144,8 @@ public class TeacherController {
                 
         Map<User,Collection<Grade>> studentGrade = new HashMap<>();
         for(User s:students){
-//            s.getGrades();
             studentGrade.put(s, s.getGradesBySubject(sub));
+                    //s.getGradesBySubject(sub));
         
         }
         model.addObject("studentGrade",studentGrade);
